@@ -5,13 +5,13 @@
 let s:keep_cpo = &cpo
 set cpo&vim
 
-command! -nargs=+ UnitexAssert
-      \ if !(<args>)
-      \|  if unitex#isjobrunning()
-      \|    call unitex#stopjob()
-      \|  endif
-      \|  throw 'Assertion failed: ' . <q-args>
-      \|endif
+" command! -nargs=+ UnitexAssert
+"       \ if !(<args>)
+"       \|  if unitex#isjobrunning()
+"       \|    call unitex#stopjob()
+"       \|  endif
+"       \|  throw 'Assertion failed: ' . <q-args>
+"       \|endif
 
 func s:echoerr(msg)
   echohl ErrorMsg | echomsg '**error**' a:msg | echohl NONE
@@ -25,7 +25,7 @@ let g:unitex#buffers = []
 let g:unitex#job = v:none
 
 func unitex#startjob()
-  UnitexAssert g:unitex#job is v:none
+  " UnitexAssert g:unitex#job is v:none
   let g:unitex#job = job_start('unitex', {'err_cb': 'unitex#joberrcb', 'exit_cb': 'unitex#jobexitcb'})
   if job_status(g:unitex#job) != 'run'
     call s:echoerr('(unitex#startjob): failed to open a unitex channel')
@@ -39,7 +39,7 @@ func unitex#isjobrunning()
 endfunc
 
 func unitex#stopjob()
-  UnitexAssert unitex#isjobrunning()
+  " UnitexAssert unitex#isjobrunning()
   call job_stop(g:unitex#job)
   let g:unitex#job = v:none
 endfunc
@@ -148,7 +148,7 @@ func unitex#jobexitcb(job, status)
   for l:bufnr in g:unitex#buffers
     call unitex#off(l:bufnr)
   endfor
-  UnitexAssert empty(g:unitex#buffers)
+  " UnitexAssert empty(g:unitex#buffers)
 endfunc
 
 func unitex#joberrcb(ch, msg)
@@ -241,12 +241,12 @@ func unitex#SafeState()
     endfor
   endif
 
-  UnitexAssert len(l:pending) <= 1
+  " UnitexAssert len(l:pending) <= 1
   let b:unitex_changes = l:pending
 endfunc
 
 func unitex#write(bufnr, fname)
-  UnitexAssert index(g:unitex#buffers, a:bufnr) >= 0
+  " UnitexAssert index(g:unitex#buffers, a:bufnr) >= 0
   let l:res = unitex#getrestoredbuf(a:bufnr)
   if l:res is v:none
     call s:echoerr('(unitex#write): failed to obtain restored content of ' . s:refbuf(a:bufnr) . ', writing failed')
@@ -285,7 +285,7 @@ func unitex#getrestoredbuf(bufnr)
 endfunc
 
 func unitex#filterlines(reverse, lines)
-  UnitexAssert unitex#isjobrunning()
+  " UnitexAssert unitex#isjobrunning()
   for l:n in range(len(a:lines))
     let l:res = unitex#filterline(a:reverse, a:lines[l:n])
     if l:res isnot v:none
