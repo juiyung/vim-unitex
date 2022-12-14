@@ -1,3 +1,5 @@
+![](demo.gif)
+
 ## Requirements
 
 A normal, big, or huge version of vim 8.2 or later is probably
@@ -75,7 +77,7 @@ supposed to pick your preferred keys to map to `<Plug>(unitex-peek)`.
 
 ## Description
 
-The `:Unitex on` command turns "unitex concealment" on, it starts
+`:Unitex on` turns "unitex concealment" on, it starts
 running `unitex` as a job on the background (one is reused if
 previously started by the plugin and still running) with a channel to
 communicate with it, filters the buffer content through the channel,
@@ -91,6 +93,10 @@ like vim's syntax concealment is turned on, but unlike in syntax
 concealment those Unicode symbols are real characters. More
 differences between the effect created by this plugin and vim's syntax
 concealment are discussed in [a later section](#pros).
+
+The `:Unitex` command also accepts the argument `off`, `:Unitex off`
+removes the listener for current buffer, unconceal the buffer content,
+and stops the background job if no more listener is using it.
 
 A mapping `<Plug>(unitex-peek)` is provided to restore the line under
 the cursor when unitex concealment is turned on. The background job

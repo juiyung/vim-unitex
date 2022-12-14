@@ -105,6 +105,10 @@ func unitex#off(bufnr)
     unlet l:b.unitex_listener
     unlet l:b.unitex_changes
     call remove(g:unitex#buffers, index(g:unitex#buffers, a:bufnr))
+
+    if empty(g:unitex#buffers)
+      call unitex#stopjob()
+    endif
   endif
 
   let l:res = unitex#getrestoredbuf(a:bufnr)
