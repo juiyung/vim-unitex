@@ -95,7 +95,7 @@ differences between the effect created by this plugin and vim's syntax
 concealment are discussed in [a later section](#pros).
 
 The `:Unitex` command also accepts the argument `off`, `:Unitex off`
-removes the listener for current buffer, unconceal the buffer content,
+removes the listener for current buffer, unconceals the buffer content,
 and stops the background job if no more listener is using it.
 
 A mapping `<Plug>(unitex-peek)` is provided to restore the line under
